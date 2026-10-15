@@ -16,7 +16,14 @@ management:
 
 spring:
   kafka:
-    bootstrap-servers: ${STREAMING_KAFKA_BROKER_URL:localhost:9092}
+    bootstrap-servers: ${KAFKA4_STREAMING_BROKER_ADDR:kafka4:29092}
+
+    authentication:
+      security.protocol: SASL_PLAINTEXT
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: >-
+        org.apache.kafka.common.security.plain.PlainLoginModule required
+        username="${KAFKA4_STREAMING_BROKER_USERNAME}" password="${KAFKA4_STREAMING_BROKER_PASSWORD}";
 
 api:
   search-api-key: ${CHS_API_KEY:apikey}
